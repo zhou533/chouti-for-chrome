@@ -1,0 +1,85 @@
+* {
+	margin:0px;
+	padding:0px;
+}
+
+body {
+	/*font-family*/
+	padding:1px;
+	width:425px;
+	height:305px;
+}
+
+input {
+	display:block;
+	margin:10px auto;
+	width:340px;
+	height:34px;
+	font-size:16px;
+	color:#494849;
+	padding:5px 10px;
+	border:1px solid #bdbdbd;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+    -border-radius: 5px;
+	outline: none;
+}
+
+/*header*/
+
+#header {
+	margin-left:auto;
+	margin-right:auto;
+	width: 340px;
+	height: 82px;
+	padding: 5px;
+	/*background-color:#b0e0e6;*/
+}
+
+#header img {
+	margin-top: 7px;
+	margin-left:134px;
+	margin-right:auto;
+}
+
+/*content*/
+
+#outer-container {
+	padding: 5px;
+	-moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6spx;
+    background-color: #F0F0F0;
+    border: 1px solid #b4b4b4;
+	height: 300px;
+}
+
+#inner-container {
+    padding: 5px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+}
+
+#content {
+    text-align: center;
+    font-weight: bold;
+	/*background-color:#b0e0e6;*/
+}
+
+#login-button-container {
+    margin-top: 4px;
+	/*background-color:#b0e0e6;*/
+}
+
+#login-button-link {
+	background-image: url(../img/login_button_sprite.png);
+	background-position: 0px 0px;
+	display: inline-block;
+	width: 200px;
+	height: 55px;
+}
+
+#login-button-link:hover {
+        background-position: 0 -77px;
+}

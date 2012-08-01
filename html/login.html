@@ -1,0 +1,52 @@
+<html>
+	<head>
+		<title>推荐到新热榜</title>
+		<link rel="stylesheet" type="text/css" href="../css/login.css">
+		<script type="text/javascript">
+			
+			var startLogin = function(tabId){
+				var username = document.getElementById("username-field").value;
+				var password = document.getElementById("password-field").value;
+				
+				chrome.extension.sendRequest({tabId:tabId, action:"login", username:username, password:password}, function(response){
+					if(response.status == "error"){
+					
+					}else if(respinse.status == "success"){
+						this.close();
+					};
+				});
+			};
+			
+			var init = function () {
+				
+				chrome.tabs.getSelected(null, function(tab){
+					var tabId = tab.id;
+					var loginButton = document.getElementById("login-button-link");
+					loginButton.onclick = function(){
+						startLogin(tabId);
+						return false;
+					};
+				});
+			};
+			
+			window.onload = init;
+		</script>
+	</head>
+
+	<body>
+		<div id="outer-container">
+			<div id="inner-container">
+				<div id="header">
+					<img src="../img/logo72.png">
+				</div>
+				<div id="content">
+					<input id="username-field" type="text" placeholder="Username"></input>
+					<input id="password-field" type="password" placeholder="Password"></input>
+					<p id="login-button-container">
+						<a id="login-button-link" href="#"></a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
