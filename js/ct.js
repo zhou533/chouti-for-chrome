@@ -33,22 +33,21 @@ var chouti = (function(){
 		var formStr = "oauth_consumer_key=" + encodeURIComponent(appKey);
 		formStr += "&oauth_nonce=" + encodeURIComponent(createUUID());
 		formStr += "&oauth_signature_method=HMAC-SHA1&oauth_timestamp=" + parseInt(new Date().getTime()/1000);
-		formStr += "&oauth_version=1.0&x_auth_model=client_auth&x_auth_password=" + encodeURIComponent(user);
-		formStr += "&x_auth_username=" + encodeURIComponent(pass);
-		
+		formStr += "&oauth_version=1.0&x_auth_model=client_auth&x_auth_password=" + encodeURIComponent(pass);
+		formStr += "&x_auth_username=" + encodeURIComponent(user);
+
 		var baseString = "POST&" + encodeURIComponent(signUrl) + "&" + encodeURIComponent(formStr);
 		var secret = appSecret + "&";
 		var signature = CryptoJS.HmacSHA1(baseString, secret);
-		formStr += "&oauth_signature=" + encodeURIComponent(signature);
-		
-		//alert(formStr);
+		var base64 = CryptoJS.enc.Base64.stringify(signature);
+		formStr += "&oauth_signature=" + encodeURIComponent(base64);
 		
 		$.ajax({
 			url:tokenUrl,
 			type:"POST",
 			data:formStr,
 			success:function(data){
-				alert("as");
+				alert(data);
 			},
 			error:function(xhr){
 				alert(xhr.readyState);
