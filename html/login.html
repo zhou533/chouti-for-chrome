@@ -11,7 +11,7 @@
 				chrome.extension.sendRequest({tabId:tabId, action:"login", username:username, password:password}, function(response){
 					if(response.status == "error"){
 					
-					}else if(respinse.status == "success"){
+					}else if(response.status == "success"){
 						this.close();
 					};
 				});

@@ -10,8 +10,8 @@ var chouti = (function(){
 	}
 	
 	function logout(){
-		localStorage.removeItem('token');
-		localStorage.removeItem('username');
+		localStorage.removeItem("token");
+		localStorage.removeItem("username");
 	}
 	
 	function createUUID() {
@@ -30,29 +30,45 @@ var chouti = (function(){
 	}
 	
 	function login(user, pass, callbacks){
-		var formStr = "oauth_consumer_key=" + encodeURIComponent(appKey);
-		formStr += "&oauth_nonce=" + encodeURIComponent(createUUID());
-		formStr += "&oauth_signature_method=HMAC-SHA1&oauth_timestamp=" + parseInt(new Date().getTime()/1000);
-		formStr += "&oauth_version=1.0&x_auth_model=client_auth&x_auth_password=" + encodeURIComponent(pass);
-		formStr += "&x_auth_username=" + encodeURIComponent(user);
+		try{
+			var formStr = "oauth_consumer_key=" + encodeURIComponent(appKey);
+			formStr += "&oauth_nonce=" + encodeURIComponent(createUUID());
+			formStr += "&oauth_signature_method=HMAC-SHA1&oauth_timestamp=" + parseInt(new Date().getTime()/1000);
+			formStr += "&oauth_version=1.0&x_auth_model=client_auth&x_auth_password=" + encodeURIComponent(pass);
+			formStr += "&x_auth_username=" + encodeURIComponent(user);
 
-		var baseString = "POST&" + encodeURIComponent(signUrl) + "&" + encodeURIComponent(formStr);
-		var secret = appSecret + "&";
-		var signature = CryptoJS.HmacSHA1(baseString, secret);
-		var base64 = CryptoJS.enc.Base64.stringify(signature);
-		formStr += "&oauth_signature=" + encodeURIComponent(base64);
-		
-		$.ajax({
-			url:tokenUrl,
-			type:"POST",
-			data:formStr,
-			success:function(data){
-				alert(data);
-			},
-			error:function(xhr){
-				alert(xhr.readyState);
-			}
-		});
+			var baseString = "POST&" + encodeURIComponent(signUrl) + "&" + encodeURIComponent(formStr);
+			var secret = appSecret + "&";
+			var signature = CryptoJS.HmacSHA1(baseString, secret);
+			var base64 = CryptoJS.enc.Base64.stringify(signature);
+			formStr += "&oauth_signature=" + encodeURIComponent(base64);
+			
+			$.ajax({
+				url:tokenUrl,
+				type:"POST",
+				data:formStr,
+				success:function(data){
+					//
+					parser = new DOMParser().parseFromString(data, "text/xml");
+					var code = parser.getElementsByTagName("code")[0].childNodes[0].nodeValue;
+					//
+					if(code == 200){
+						var access_token = parser.getElementsByTagName("access_token")[0].childNodes[0].nodeValue
+						//alert(access_token);
+						localStorage["username"] = user;
+						localStorage["token"] = access_token;
+						callbacks.success();
+					}else{
+						alert(code);
+					}
+				},
+				error:function(xhr){
+					alert(xhr.readyState);
+				}
+			});
+		}catch(e){
+			alert(e.message);
+		}
 	}
 
 	return{
