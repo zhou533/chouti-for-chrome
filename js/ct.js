@@ -4,6 +4,7 @@ var chouti = (function(){
 	var appSecret = "5c585c08a597c23d";
 	var signUrl = "http://api.gozap.com/xauth/access_token";
 	var tokenUrl = "http://api.gozap.com/xauth/access_token";
+	var apiUrl = "http://api.gozap.com";
 	
 	function isAuthorized(){
 		return (localStorage.token && localStorage.username);
@@ -73,10 +74,40 @@ var chouti = (function(){
 			alert(e.message);
 		}
 	}
+	
+	function show(url, callbacks){
+		try{
+			var showUrl = apiUrl;
+			showUrl += "/links/show.json?id=";
+			showUrl += "4053434";
+			if(isAuthorized()){
+				showUrl += "&access_token=";
+				showUrl += appKey;
+				showUrl += localStorage.token;
+			}else{
+				showUrl += "&source=";
+				showUrl += appKey;
+			}
+		
+			alert(showUrl);
+			$.ajax({
+				url:showUrl,
+				success:function(data){
+					alert("s");
+				},
+				error:function(jqXHR, textStatus, errorThrown){
+					alert(jqXHR.readyState);
+				}
+			});
+		}catch(e){
+			alert(e.message);
+		}
+	}
 
 	return{
 		isAuthorized : isAuthorized,
 		login : login,
-		logout : logout
+		logout : logout,
+		show : show
 	};
 }());

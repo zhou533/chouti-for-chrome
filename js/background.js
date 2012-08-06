@@ -86,8 +86,9 @@ $(function(){
 			return;
 		}
 		
-		//alert("YES");
-		//chouti.logout();
+		chouti.show("http://www.google.com", function(){
+			
+		});
 	};
 	
 	chrome.browserAction.onClicked.addListener(handleUpToChouTi);
@@ -100,4 +101,12 @@ $(function(){
 			});
 		}
 	});
+	
+	/*chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
+		if(tab.active){
+			choti.show(tab.url, function(){
+			
+			});
+		}
+	});*/
 });
