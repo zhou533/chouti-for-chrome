@@ -1,9 +1,11 @@
 $(function(){
-	chrome.extension.onRequest.addListener(function(request, sender, sendRequest){
+	var authentication;
+	addMessageListener(function(request, sender, sendRequest){
 		if(request.action == "login"){
 			//alert("login");
 			chouti.login(request.username, request.password, {
 				success:function(){
+					
 					if(request.tabId){
 						chrome.tabs.update(request.tabId,{
 							selected:true
@@ -19,17 +21,25 @@ $(function(){
 						});
 					});
 					
+					chrome.extension.sendMessage({
+						action: "updateOptions"
+					});
+					
 					sendRequest({
 						status:"success"
 					});
+					
 				},
-				error:function(xhr){
-				
+				error:function(err){
+					sendRequest({
+						status:"error",
+						error:err.error
+					});
 				}
 			});
 		}else if(request.action == "logout"){
 			chouti.logout();
-			alert("logout");
+			//alert("logout");
 			//
 			chrome.tabs.query({}, function(tabs){
 				$.each(tabs, function(index, tab){
@@ -42,10 +52,14 @@ $(function(){
 			
 			//
 			sendRequest({});
+		}else if (request.action == "showLoginWindow") {
+			
+			authentication.showLoginWindow();
+			sendRequest({});
 		}
 	});
 	
-	var authentication = (function authentication(){
+	authentication = (function authentication(){
 		function showLoginWindow(targetTab, afterLogin){
 			var width = 427, height = 384;
 			chrome.windows.create({
@@ -64,7 +78,7 @@ $(function(){
 	}());
 	
 	function handleUpToChouTi(tab, inUrl){
-		alert("Up");
+		//alert("Up");
 		if(!chouti.isAuthorized()){
 			authentication.showLoginWindow(tab, function(){
 				handleUpToChouTi(tab, inUrl);
@@ -72,8 +86,8 @@ $(function(){
 			return;
 		}
 		
-		alert("YES");
-		chouti.logout();
+		//alert("YES");
+		//chouti.logout();
 	};
 	
 	chrome.browserAction.onClicked.addListener(handleUpToChouTi);

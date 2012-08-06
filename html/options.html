@@ -24,15 +24,16 @@
 				var logoutLink = document.getElementById("logout-link");
 				logoutLink.onclick = function () {
 					// Inform background.js to logout
-					alert("ll");
-					chrome.extension.sendRequest({action:"logout"}, function() {
+					//alert("ll");
+					chrome.extension.sendMessage({action:"logout"}, function() {
 						init(); 
 					});
 				};
 				
-				loginLink =  document.getElementById("login-link");
+				var loginLink = document.getElementById("login-link");
 				loginLink.onclick = function() {
-					chrome.extension.sendMessage({action:"showLoginWindow"}, function() {});
+					//alert("linl");
+					chrome.extension.sendMessage({action:"showLoginWindow"}, function(){});
 				};
 			};
 			

@@ -2,18 +2,27 @@
 	<head>
 		<title>推荐到新热榜</title>
 		<link rel="stylesheet" type="text/css" href="../css/login.css">
+		<script src="../js/common.js"></script>
 		<script type="text/javascript">
 			
 			var startLogin = function(tabId){
+				var error_field = document.getElementById("subtext-field");
+				error_field.setAttribute("class", "");
+				error_field.innerHTML = "登录中...";
+				
 				var username = document.getElementById("username-field").value;
 				var password = document.getElementById("password-field").value;
 				
-				chrome.extension.sendRequest({tabId:tabId, action:"login", username:username, password:password}, function(response){
+				sendMessage({tabId:tabId, action:"login", username:username, password:password}, function(response){
+					//alert("login success");
 					if(response.status == "error"){
-					
+						error_field.setAttribute("class", "error");
+						error_field.innerHTML = "用户名或密码错误";
+						error_field.style.display = "block";
 					}else if(response.status == "success"){
+						alert("login success");
 						this.close();
-					};
+					}
 				});
 			};
 			
@@ -27,9 +36,18 @@
 						return false;
 					};
 				});
+				
+				
+			};
+			
+			var keypressed = function(){
+				if(event.keyCode == '13'){
+					startlogin("");
+				}
 			};
 			
 			window.onload = init;
+			//window.onkeyup = keypressed;
 		</script>
 	</head>
 
@@ -42,6 +60,7 @@
 				<div id="content">
 					<input id="username-field" type="text" placeholder="Username"></input>
 					<input id="password-field" type="password" placeholder="Password"></input>
+					<p id="subtext-field">欢迎使用新热榜</p>
 					<p id="login-button-container">
 						<a id="login-button-link" href="#"></a>
 					</p>

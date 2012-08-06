@@ -59,11 +59,13 @@ var chouti = (function(){
 						localStorage["token"] = access_token;
 						callbacks.success();
 					}else{
-						alert(code);
+						//alert(code);
+						callbacks.error({error:code});
 					}
 				},
 				error:function(xhr){
-					alert(xhr.readyState);
+					//alert(xhr.readyState);
+					callbacks.error({error:xhr.readyState});
 				}
 			});
 		}catch(e){
