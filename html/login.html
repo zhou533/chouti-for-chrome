@@ -13,14 +13,14 @@
 				var username = document.getElementById("username-field").value;
 				var password = document.getElementById("password-field").value;
 				
-				sendMessage({tabId:tabId, action:"login", username:username, password:password}, function(response){
+				chrome.extension.sendMessage({tabId:tabId, action:"login", username:username, password:password}, function(response){
 					//alert("login success");
 					if(response.status == "error"){
 						error_field.setAttribute("class", "error");
-						error_field.innerHTML = "用户名或密码错误";
+						error_field.innerHTML = response.error;//"用户名或密码错误";
 						error_field.style.display = "block";
 					}else if(response.status == "success"){
-						alert("login success");
+						//alert("login success");
 						this.close();
 					}
 				});

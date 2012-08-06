@@ -60,7 +60,8 @@ var chouti = (function(){
 						callbacks.success();
 					}else{
 						//alert(code);
-						callbacks.error({error:code});
+						var message = parser.getElementsByTagName("message")[0].childNodes[0].nodeValue;
+						callbacks.error({error:message});
 					}
 				},
 				error:function(xhr){
