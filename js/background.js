@@ -98,11 +98,5 @@ $(function(){
 		}
 	});
 	
-	chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
-		if(tab.active){
-			chouti.show(tab.url, function(){
-			
-			});
-		}
-	});
+	
 });
