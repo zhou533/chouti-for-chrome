@@ -1,0 +1,10 @@
+{
+	"loginForm_login" : {
+      "description" : "Sign in button label for login form",
+      "message" : "\u767b\u5f55"
+   },
+   "loginForm_password" : {
+      "description" : "Label for entering password into login form",
+      "message" : "\u5bc6\u7801"
+   }
+}

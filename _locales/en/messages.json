@@ -1,0 +1,10 @@
+{
+	"loginForm_username":  {
+        "message": "Username",
+        "description": "Label for entering username into login form"
+    },
+    "loginForm_password": {
+        "message": "Password",
+        "description": "Label for entering password into login form"
+    }
+}

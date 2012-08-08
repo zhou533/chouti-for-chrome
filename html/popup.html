@@ -4,9 +4,58 @@
 
 	<body class="popup">
 		<div id="main">
+			<!-- Header -->
 			<div id="header">
+				<div id="headerLogo">
+					<img id="logoImg" src="../img/goo01.png"/>
+				</div>
+			</div>
+			
+			<!-- Error Message Container -->
+			<div id="globalErrorMessage" class="globalErrorMessage banner"></div>
+			
+			<!-- Progress -->
+			<div id="waitingView" class="view">
+				<div id="waitingText" message="popup_waiting"></div>
+				<progress indeterminate></progress>
+			</div>
+			
+			<!-- login -->
+			<div id="loginView" class="view">
+				<form id="loginForm" name="loginForm" action="#">
+					<div>
+						<div class="loginFieldBlock">
+							<label for="username" message="loginForm_username"></label>
+							<input type="text" autofocus id="username" maxlength="20" style="text-transform:lowercase" tabindex="1"/>
+							<div id="usernameError" style="display:none"></div>
+						</div>
+					</div>
+					<div>
+						<div class="loginFieldBlock">
+							<label for="password" message="loginForm_password"></label>
+							<input type="password" id="password" name="password" maxlength="16" tabindex="2"/>
+							<div id="passwordError" style="display:none"></div>
+						</div>
+					</div>
+					<div class="loginButtonBlock">
+						<input type="button" id="loginControl" name="login" message="loginForm_login" style="margin-bottom: 8px;" tabindex="3"/>
+					</div>
+				</form>
+			</div>
+			
+			<!-- create view -->
+			<div id="createView" class="view">
 			
 			</div>
+			
+			
+			<!-- result view -->
+			<div id="resultView" class="view">
+			
+			</div>
+			
+			
+			
 		</div>
 	
 	</body>
