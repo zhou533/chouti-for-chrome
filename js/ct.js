@@ -7,7 +7,7 @@ var chouti = (function(){
 	var apiUrl = "http://api.chouti.com";
 	
 	function isAuthorized(){
-		return (localStorage.token && localStorage.username);
+		return (localStorage["token"] && localStorage["username"]);
 	}
 	
 	function logout(){
@@ -49,6 +49,7 @@ var chouti = (function(){
 				type:"POST",
 				data:formStr,
 				success:function(data){
+					//alert(data);
 					//
 					parser = new DOMParser().parseFromString(data, "text/xml");
 					var code = parser.getElementsByTagName("code")[0].childNodes[0].nodeValue;
@@ -111,3 +112,5 @@ var chouti = (function(){
 		show : show
 	};
 }());
+
+Object.preventExtensions(chouti);

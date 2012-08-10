@@ -6,5 +6,9 @@
    "loginForm_password" : {
       "description" : "Label for entering password into login form",
       "message" : "\u5bc6\u7801"
+   },
+   "popup_waiting": {
+      "description": "Displays while the popup window waits for a page to finish loading.",
+      "message": "\u7B49\u5F85\u9875\u9762..."
    }
 }
