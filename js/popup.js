@@ -1,5 +1,7 @@
 var popup;
 
+var bg = chrome.extension.getBackgroundPage();
+
 function popup(){
 
 	document.querySelector("#loginControl").addEventListener("click", login);
@@ -73,7 +75,8 @@ function popup(){
 			if(response.status == "error"){
 				alert("Err");
 			}else if(response.status == "success"){
-				alert("su");
+				//alert("su");
+				
 			}
 		});
 	}
@@ -87,8 +90,6 @@ function popup(){
 
 function start(){
 	popup = new popup();
-	
-	var bg = chrome.extension.getBackgroundPage();
 	
 	if(!bg.chouti.isAuthorized()){
 		

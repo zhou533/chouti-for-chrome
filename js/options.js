@@ -23,12 +23,6 @@ var init = function(){
 			init(); 
 		});
 	};
-	
-	var loginLink = document.getElementById("login-link");
-	loginLink.onclick = function() {
-		//alert("linl");
-		chrome.extension.sendMessage({action:"showLoginWindow"}, function(){});
-	};
 };
 
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
