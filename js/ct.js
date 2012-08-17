@@ -94,15 +94,40 @@ var chouti = (function(){
 			$.ajax({
 				url:showUrl,
 				success:function(data){
-					alert("ups:"+data.link.ups);
+					//alert("ups:"+JSON.stringify(data));
+					callbacks.success(data.link);
 				},
-				error:function(jqXHR, textStatus, errorThrown){
-					alert(errorThrown);
+				error:function(xhr){
+					callbacks.error({error:xhr.readyState});
 				}
 			});
 		}catch(e){
 			alert(e.message);
 		}
+	}
+	
+	function up(linkid, callbacks){
+		try{
+			var upUrl = apiUrl;
+			upUrl += "/links/up.json?link_id=";
+			upUrl += linkid;
+			upUrl += "&access_token=";
+			upUrl += appKey;
+			upUrl += localStorage.token;
+		
+			$.ajax({
+				url:upUrl,
+				success:function(data){
+					//alert("ups:"+data.link.ups);
+					callbacks.success(data.ups);
+				},
+				error:function(xhr){
+					callbacks.error({error:xhr.readyState});
+				}
+			});
+		}catch(e){
+			alert(e.message);
+		}		
 	}
 
 	return{

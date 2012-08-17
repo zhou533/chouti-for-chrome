@@ -58,6 +58,46 @@ function popup(){
 		showWaiting(message);
 	}
 	
+	function up(id){
+		var upRequest = {
+			action:"up",
+			linkId:id
+		};
+		chrome.extension.sendMessage(upRequest, function(response){
+			if(response.status == "ups"){
+				alert("Ups: " + response.ups);
+			}else if(response.status == "error"){
+			
+			}
+		});
+	}
+	
+
+	function show(){
+		//alert("show");
+		//
+		var request = {
+			action:"show"
+		};
+		
+		chrome.extension.sendMessage(request,function(response){
+			alert("validss");
+			if(response.status == "valid"){
+				alert("valid");
+				if(!response.has_uped){
+					up(response.id);
+				}else{
+					alert("has_uped");
+				}
+			}else if(response.status == "empty"){
+				alert("empty");
+			}else if(response.status == "error"){
+				alert(response.error);
+			}else{
+				hideWaiting();
+			}
+		});
+	}
 		
 	//
 	function login(){
@@ -76,7 +116,7 @@ function popup(){
 				alert("Err");
 			}else if(response.status == "success"){
 				//alert("su");
-				
+				show();
 			}
 		});
 	}
@@ -84,7 +124,8 @@ function popup(){
 	//
 	return{
 		LoginView : LoginView,
-		WaitingView : WaitingView
+		WaitingView : WaitingView,
+		Show : show
 	};
 };
 
@@ -97,7 +138,7 @@ function start(){
 		return;
 	}
 	popup.WaitingView("Waiting");
-
+	popup.Show();
 };
 
 document.addEventListener("DOMContentLoaded", start);
